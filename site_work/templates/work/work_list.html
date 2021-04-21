@@ -1,0 +1,73 @@
+{% extends "shared/_Mainlayout.html" %}
+
+{% block title %}کار های من{% endblock %}
+
+{% block content %}
+    <div class="box box-content">
+        <div class="pb-2">
+            <h1 class="title title--h1 first-title title__separate">نمونه کارها</h1>
+        </div>
+
+        <!-- Filter -->
+        <div class="select">
+            <span class="placeholder">انتخاب دسته بندی</span>
+            <ul class="filter">
+                <li class="filter__item">دسته بندی</li>
+                <li class="filter__item active" data-filter="*"><a class="filter__link active" href="#filter">همه</a>
+                </li>
+                {% for category in category %}
+                    <li class="filter__item" data-filter=".category-{{ category.name }}"><a class="filter__link"
+                                                                                            href="#filter">{{ category.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <input type="hidden" name="changemetoo">
+        </div>
+
+        <!-- Gallery -->
+        <div class="gallery-grid js-grid-row js-filter-container" style="position: relative; height: 3274px;">
+            <div class="gutter-sizer"></div>
+            <!-- Item -->
+            {% for work in page_obj %}
+                <figure class="gallery-grid__item category-{{ work.categories.first.name }}"
+                        style="position: absolute; left: 0%; top: 0px;">
+                    <div class="gallery-grid__image-wrap">
+                        <img class="gallery-grid__image cover medium-zoom-image ls-is-cached lazyloaded"
+                             src="{{ work.get_image_or_default }}" data-zoom="" alt="">
+                    </div>
+                    <figcaption class="gallery-grid__caption">
+                        <h4 class="title title--h6 gallery-grid__title">{{ work.title }}</h4>
+                        <span class="gallery-grid__category">{{ work.description }}</span>
+                    </figcaption>
+                </figure>
+            {% endfor %}
+        </div><!-- Gallery End -->
+        <div class="pagination-area">
+            {% if page_obj|length > 0 %}
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                        <li style="padding-left: 10px"><a style="color: #fd7e14"
+                                                          href="?page={{ page_obj.previous_page_number }}">قبلی</a>
+                        </li>
+                    {% endif %}
+                    {% for page in paginator.page_range %}
+                        {% if page == page_obj.number %}
+                            <li style="padding-left: 10px;"><a style="color: #304CFD"
+                                                               href="?page={{ page }}">{{ page }}</a></li>
+                        {% else %}
+                            <li style="padding-left: 10px;"><a style="color: #fd7e14"
+                                                               href="?page={{ page }}">{{ page }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <li style="padding-left: 10px"><a style="color: #fd7e14"
+                                                          href="?page={{ page_obj.next_page_number }}">بعدی</a></li>
+                    {% endif %}
+                </ul>
+            {% else %}
+                <p class="alert alert-warning text-center">بلاگ مورد نظر یافت نشد</p>
+            {% endif %}
+        </div>
+
+    </div>
+{% endblock %}

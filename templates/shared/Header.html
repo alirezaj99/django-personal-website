@@ -1,0 +1,30 @@
+{% load static %}
+<header class="header box">
+    <div class="header__left">
+        <div class="header__photo">
+            <img class="header__photo-img" src="{{ about_us.get_image_or_default }}" alt="Ronald Robertson">
+        </div>
+        <div class="header__base-info">
+            <h4 class="title titl--h4">{{ about_us.first_name }} {{ about_us.last_name }}</h4>
+            <div class="status">{{ about_us.short_description }}</div>
+            <ul class="header__social">
+                <li><a href="https://www.linkedin.com/{{ about_us.facebook }}"><i class="font-icon icon-linkedin1"></i></a>
+                </li>
+                <li><a href="https://www.twitter.com/{{ about_us.twitter }}"><i class="font-icon icon-twitter1"></i></a>
+                </li>
+                <li><a href="https://www.instagram.com/{{ about_us.instagram }}"><i
+                        class="font-icon icon-instagram1"></i></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="header__right">
+        <ul class="header__contact">
+            <li><span class="overhead">ایمیل</span>{{ about_us.email }}</li>
+            <li><span class="overhead">تلفن</span>{{ about_us.phone }}</li>
+        </ul>
+        <ul class="header__contact">
+            <li><span class="overhead">تولد</span>{{ about_us.date_of_birth }}</li>
+            <li><span class="overhead">مکان تولد</span>{{ about_us.place_of_birth }}</li>
+        </ul>
+    </div>
+</header>

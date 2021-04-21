@@ -1,0 +1,65 @@
+{% extends "shared/_Mainlayout.html" %}
+{% load static %}
+{% block title %}رزومه من{% endblock %}
+
+{% block content %}
+    <div class="box box-content">
+        <div class="pb-2">
+            <h1 class="title title--h1 first-title title__separate">رزومه</h1>
+        </div>
+
+        <!-- Experience -->
+        <div class="row">
+            <div class="col-12">
+                <h2 class="title title--h3"><img class="title-icon" src="{% static "icons/icon-education.svg" %}"
+                                                 alt="">
+                    تحصیلات</h2>
+                <div class="timeline">
+                    <!-- Item -->
+                    {% for education in education %}
+                        <article class="timeline__item">
+                            <h5 class="title title--h5 timeline__title">{{ education.place }}</h5>
+                            <span class="timeline__period">{{ education.time }}</span>
+                            <p class="timeline__description">{{ education.description }}</p>
+                        </article>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-12">
+                <h2 class="title title--h3"><img class="title-icon" src="{% static "icons/icon-experience.svg" %}"
+                                                 alt=""> تجربه
+                </h2>
+                <div class="timeline">
+                    <!-- Item -->
+                    {% for experience in experience %}
+                        <article class="timeline__item">
+                            <h5 class="title title--h5 timeline__title">{{ experience.title }}</h5>
+                            <span class="timeline__period">{{ experience.time }}</span>
+                            <p class="timeline__description">{{ experience.description }}</p>
+                        </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="row">
+            <div class="col-12">
+                <h2 class="title title--h3">مهارت های من</h2>
+                <div class="box box__border">
+                    <!-- Progress -->
+                    {% for skill in skill %}
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="{{ skill.percent }}"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100" style="width: 80%; z-index: 2;">
+                                <div class="progress-text"><span>{{ skill.title }}</span><span>{{ skill.percent }}%</span></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

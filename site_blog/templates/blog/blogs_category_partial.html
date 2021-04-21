@@ -1,0 +1,9 @@
+<ul class="nav list-unstyled mb-2">
+    <li class="px-2"><a class="decoration--none" style="color: #5E6E80" href="{% url "blogs:blog_list" %}">همه</a></li>
+    {% for category in categories %}
+        <li class="px-2"><a
+                class="decoration--none" style="color: #0c5460"
+                href="{{ category.get_category_url }}">{{ category.title }}</a></li>
+    {% endfor %}
+</ul>
+

@@ -1,0 +1,11 @@
+{% extends "shared/_Mainlayout.html" %}
+{% block title %}ارور 500{% endblock %}
+{% block content %}
+
+    <div class="pb-0 pb-sm-2">
+        <h1 class="title title--h1 first-title title__separate">ارور 500</h1>
+    </div>
+    <p class="alert alert-danger text-center">لطفا منتظر بمانید </p>
+    <p class="text-center">صفحه <a href="{% url 'about_us:about_me' %}">درباره من</a></p>
+
+{% endblock %}

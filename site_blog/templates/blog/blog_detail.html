@@ -1,0 +1,157 @@
+{% extends "shared/_Mainlayout.html" %}
+{% block title %}وبلاگ | {{ blogs.title }} - {{ blogs.id }}{% endblock %}
+{% load static %}
+{% load jalali_tags %}
+{% block content %}
+    <div class="box box-content">
+        <!-- Post -->
+        <div class="pb-3">
+            <header class="header-post">
+                <h1 class="title title--h1">{{ blogs.title }}</h1>
+                <div class="caption-post">
+                    <p>{{ blogs.description }}</p>
+                </div>
+                <div class="header-post__image-wrap">
+                    <img class="cover medium-zoom-image ls-is-cached lazyloaded" src="{{ blogs.get_image_or_default }}"
+                         data-zoom="" alt="{{ blogs.title }}">
+                </div>
+            </header>
+            <div class="caption-post">
+                {{ blogs.body|safe }}
+            </div>
+            <footer class="footer-post">
+                <a class="footer-post__share" href="http://facebook.com/{{ about_us.facebook }}"><i
+                        class="font-icon icon-facebook"></i><span>فیس بوک</span></a>
+                <a class="footer-post__share" href="http://twitter.com/{{ about_us.twitter }}"><i
+                        class="font-icon icon-twitter"></i><span>توییتر</span></a>
+                <a class="footer-post__share" href="http://instagram.com/{{ about_us.instagram }}"><i
+                        class="font-icon icon-instagram"></i><span>اینستاگرام</span></a>
+                {% if user.is_authenticated %}
+                    {% if user in blogs.like.all %}
+                        <a class="footer-post__share" href="{% url "blogs:unlike_blog" blogs.id %}"><i
+                                class="font-icon icon-like-fill" style="color: red"></i><span>پس گرفتن لایک</span></a>
+                    {% else %}
+                        <a class="footer-post__share" href="{% url "blogs:like_blog" blogs.id %}"><i
+                                class="font-icon icon-like"></i><span>لایک</span></a>
+                    {% endif %}
+                {% endif %}
+
+            </footer>
+        </div>
+        <!-- Comment -->
+        <div class="box-inner box-inner--rounded">
+            <h2 class="title title--h3">نظرات <span class="color--light">({{ comment_count }})</span></h2>
+
+            <!-- Comment -->
+            <div class="comment-box">
+                {% for comment in comment %}
+                    <div class="comment-box__inner">
+
+                        <div class="comment-box__body">
+                            <h5 class="comment-box__details"><span>{{ comment.name }}</span>
+                                <span class="comment-box__details-date">تاریخ : {{ comment.date|to_jalali:'%y/%m/%d' }}  | ساعت : {{ comment.date|to_jalali:'%H:%M' }}</span>
+                            </h5>
+                            <p>{{ comment.text }}</p>
+
+                            {% comment %}
+                            <ul class="comment-box__footer">
+                                <li><i class="font-icon icon-like-fill"></i> <span>80</span></li>
+                            </ul>
+{% endcomment %}
+                            <hr>
+                        </div>
+
+                    </div>
+                {% endfor %}
+
+                <!-- Comment form -->
+                <ul class="social-auth">
+                    <li class="social-auth__item">من رو دنبال کنید :</li>
+                    <li class="social-auth__item"><a class="social-auth__link"
+                                                     href="http://instagram.com/{{ about_us.facebook }}"><i
+                            class="font-icon icon-facebook"></i></a></li>
+                    <li class="social-auth__item"><a class="social-auth__link"
+                                                     href="http://instagram.com/{{ about_us.twitter }}"><i
+                            class="font-icon icon-twitter"></i></a></li>
+                    {#                    <li class="social-auth__item"><a class="social-auth__link" href="#"><i#}
+                    {#                            class="font-icon icon-dribbble"></i></a></li>#}
+                    <li class="social-auth__item"><a class="social-auth__link"
+                                                     href="http://instagram.com/{{ about_us.instagram }}"><i
+                            class="font-icon icon-instagram"></i></a></li>
+                </ul>
+                <form class="comment-form" method="post">
+                    {% csrf_token %}
+
+                    {#                <textarea id="commentForm" class="textarea form-control" required="required"#}
+                    {#                          placeholder="نوشتن دیدگاه ..." rows="1" tabindex="1"#}
+                    {#                          style="overflow: hidden; overflow-wrap: break-word; outline: none; touch-action: none; height: 61px;"></textarea>#}
+                    {{ comment_form.name }}
+                    {{ comment_form.email }}
+                    {{ comment_form.text }}
+                    <div class="row">
+                        <button type="submit"
+                                style="margin-top: 20px;background-color: #007bff;border-radius: 20px;border: 2px solid #3B4B5E ;color: #fff;padding: 5px"
+                                class="btn-block">ثبت نظر <i
+                                class="font-icon icon-send" style="color: #fff"></i>
+                        </button>
+                    </div>
+
+                    {% comment %}
+                    <div class="dropdown dropup">
+                        <i class="font-icon icon-smile" id="dropdownEmoji" data-toggle="dropdown"
+                           aria-haspopup="true"></i>
+                        <div class="dropdown-menu dropdown-menu-center" aria-labelledby="dropdownEmoji">
+                            <div class="emoji-wrap">
+                                <img class="emoji" src="{% static "icons/emoji/emoji-laughing.svg" %}"
+                                     title=":laughing:"
+                                     alt="laughing">
+                                <img class="emoji" src="{% static "icons/emoji/emoji-happy-2.svg" %}" title=":happy 2:"
+                                     alt="happy 2">
+                                <img class="emoji" src="{% static "icons/emoji/emoji-crazy.svg" %}" title=":crazy:"
+                                     alt="crazy">
+                                <img class="emoji" src="{% static "icons/emoji/emoji-bad.svg" %}" title=":bad:"
+                                     alt="bad">
+                                <img class="emoji" src="{% static "icons/emoji/emoji-angry.svg" %}" title=":angry:"
+                                     alt="angry">
+                                <img class="emoji" src="{% static "icons/emoji/emoji-happy.svg" %}" title="happy"
+                                     alt="happy">
+                                <img class="emoji" src="{% static "icons/emoji/emoji-thinking.svg" %}"
+                                     title=":thinking:"
+                                     alt="thinking">
+                                <img class="emoji" src="{% static "icons/emoji/emoji-sad.svg" %}" title=":sad:"
+                                     alt="sad">
+                                <img class="emoji" src="{% static "icons/emoji/emoji-pressure.svg" %}"
+                                     title=":pressure:"
+                                     alt="pressure">
+                                <img class="emoji" src="{% static "icons/emoji/emoji-in-love.svg" %}" title=":in love:"
+                                     alt="in love">
+                                <img class="emoji" src="{% static "icons/emoji/emoji-nerd.svg" %}" title=":laughing:"
+                                     alt="nerd">
+                                <img class="emoji" src="{% static "icons/emoji/emoji-happy-3.svg" %}" title=":happy 3:"
+                                     alt="happy 3">
+                                <img class="emoji" src="{% static "icons/emoji/emoji-shocked.svg" %}" title=":shocked:"
+                                     alt="shocked">
+                                <img class="emoji" src="{% static "icons/emoji/emoji-wink.svg" %}" title=":wink:"
+                                     alt="wink">
+                                <img class="emoji" src="{% static "icons/emoji/emoji-sweating.svg" %}"
+                                     title=":sweating:"
+                                     alt="sweating">
+                                <img class="emoji" src="{% static "icons/emoji/emoji-shocked-2.svg" %}"
+                                     title=":shocked 2:"
+                                     alt="shocked 2">
+                                <img class="emoji" src="{% static "icons/emoji/emoji-shocked-3.svg" %}"
+                                     title=":shocked 3:"
+                                     alt="shocked 3">
+                                <img class="emoji" src="{% static "icons/emoji/emoji-sad-2.svg" %}" title=":sad 2:"
+                                     alt="sad 2">
+                            </div>
+                        </div>
+                    </div>
+{% endcomment %}
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

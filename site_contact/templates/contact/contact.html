@@ -1,0 +1,97 @@
+{% extends "shared/_Mainlayout.html" %}
+{% block title %}تماس با من{% endblock %}
+
+{% block content %}
+    <div class="box box-content">
+        <div class="pb-2">
+            <h1 class="title title--h1 first-title title__separate">تماس با ما</h1>
+        </div>
+        <br>
+
+        <!-- Contact -->
+        {% comment %}
+        <div class="map mapboxgl-map" id="map">
+            <div class="mapboxgl-canary" style="visibility: hidden;"></div>
+            <div class="mapboxgl-canvas-container mapboxgl-interactive mapboxgl-touch-drag-pan mapboxgl-touch-zoom-rotate">
+                <canvas class="mapboxgl-canvas" tabindex="0" aria-label="Map" width="241" height="250"
+                        style="width: 241px; height: 250px;"></canvas>
+                <div id="marker" class="mapboxgl-marker mapboxgl-marker-anchor-center" tabindex="0"
+                     style="transform: translate(-50%, -50%) translate(121px, 125px) rotateX(0deg) rotateZ(0deg);"></div>
+            </div>
+            <div class="mapboxgl-control-container">
+                <div class="mapboxgl-ctrl-top-left"></div>
+                <div class="mapboxgl-ctrl-top-right"></div>
+                <div class="mapboxgl-ctrl-bottom-left">
+                    <div class="mapboxgl-ctrl" style="display: block;"><a class="mapboxgl-ctrl-logo mapboxgl-compact"
+                                                                          target="_blank" rel="noopener nofollow"
+                                                                          href="https://www.mapbox.com/"
+                                                                          aria-label="Mapbox logo"></a></div>
+                </div>
+                <div class="mapboxgl-ctrl-bottom-right">
+                    <div class="mapboxgl-ctrl mapboxgl-ctrl-group">
+                        <button class="mapboxgl-ctrl-zoom-in" type="button" title="Zoom in" aria-label="Zoom in"><span
+                                class="mapboxgl-ctrl-icon" aria-hidden="true"></span></button>
+                        <button class="mapboxgl-ctrl-zoom-out" type="button" title="Zoom out" aria-label="Zoom out">
+                            <span class="mapboxgl-ctrl-icon" aria-hidden="true"></span></button>
+                        <button class="mapboxgl-ctrl-compass" type="button" title="Reset bearing to north"
+                                aria-label="Reset bearing to north"><span class="mapboxgl-ctrl-icon" aria-hidden="true"
+                                                                          style="transform: rotate(0deg);"></span>
+                        </button>
+                    </div>
+                    <div class="mapboxgl-ctrl mapboxgl-ctrl-attrib mapboxgl-compact">
+                        <div class="mapboxgl-ctrl-attrib-inner"><a href="https://www.mapbox.com/about/maps/"
+                                                                   target="_blank">© Mapbox</a> <a
+                                href="http://www.openstreetmap.org/about/" target="_blank">© OpenStreetMap</a> <a
+                                class="mapbox-improve-map"
+                                href="https://apps.mapbox.com/feedback/?owner=mapbox&amp;id=light-v10&amp;access_token=pk.eyJ1IjoiYXJ0dGVtcGxhdGUiLCJhIjoiY2s0M3I5ZHgzMGEzNDNucXM1cDd0dzl3cSJ9.a2wjLlxz8LzWj9nIoGsshw"
+                                target="_blank" rel="noopener nofollow">Improve this map</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endcomment %}
+
+        <h2 class="title title--h3">فرم تماس</h2>
+
+        <form method="post" class="contact-form" data-toggle="validator" novalidate="true">
+            {% csrf_token %}
+            <div class="row">
+                <div class="form-group col-12 col-md-6">
+                    {{ contact_form.full_name }}
+                    <div class="help-block with-errors">
+                        {% for error in contact_form.full_name.errors %}
+                            <p class="text-danger">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group col-12 col-md-6">
+                    {{ contact_form.email }}
+                    <div class="help-block with-errors">
+                        {% for error in contact_form.email.errors %}
+                            <p class="text-danger">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group col-12 col-md-12">
+                    {{ contact_form.message }}
+                    <div class="help-block with-errors">
+                        {% for error in contact_form.message.errors %}
+                            <p class="text-danger">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6 order-2 order-md-1 text-center text-md-left">
+                    <div id="validator-contact" class="hidden"></div>
+                </div>
+                <div class="col-12 col-md-6 order-1 order-md-2 text-left">
+                    <button type="submit" class="btn disabled"><i class="font-icon icon-send"></i> پیام بفرستید
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "shared/_Mainlayout.html" %}
+{% load jalali_tags %}
+{% load render_partial %}
+{% block title %}وبلاگ من {{ category }}{% endblock %}
+
+{% block content %}
+
+    <div class="box box-content">
+        <div class="pb-2">
+            <h1 class="title title--h1 first-title title__separate">وبلاگ</h1>
+        </div>
+    {% render_partial "site_blog.views.blogs_category_partial" %}
+        <!-- News -->
+        <div class="news-grid">
+            <!-- Post -->
+            {% for blog in page_obj %}
+                <article class="news-item box">
+                    <div class="news-item__image-wrap overlay overlay--45">
+                        <div class="news-item__date">{{ blog.time|to_jalali:'%H:%M' }}<span>{{ blog.time|to_jalali:'%y/%m/%d' }}</span>
+                        </div>
+                        <a class="news-item__link" href="{{ blog.get_absolute_url }}"></a>
+                        <img class="cover ls-is-cached lazyloaded" src="{{ blog.get_image_or_default }}"
+                             alt="{{ blog.time }}">
+                    </div>
+                    <div class="news-item__caption">
+                        <a class="text-decoration-none" href="{{ blog.get_absolute_url }}"><h2
+                                class="title title--h4">{{ blog.title }}</h2></a>
+                        <a style="color:#2b2b2b;" class="text-decoration-none" href="{{ blog.get_absolute_url }}"><p
+                                class="text-justify">{{ blog.description|truncatechars:110 }}</p></a>
+                    </div>
+                </article>
+            {% endfor %}
+
+
+        </div>
+
+        <div class="pagination-area">
+            {% if page_obj|length > 0 %}
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                        <li style="padding-left: 10px"><a style="color: #fd7e14"
+                                                          href="?page={{ page_obj.previous_page_number }}">قبلی</a>
+                        </li>
+                    {% endif %}
+                    {% for page in paginator.page_range %}
+                        {% if page == page_obj.number %}
+                            <li style="padding-left: 10px;"><a style="color: #304CFD"
+                                                               href="?page={{ page }}">{{ page }}</a></li>
+                        {% else %}
+                            <li style="padding-left: 10px;"><a style="color: #fd7e14"
+                                                               href="?page={{ page }}">{{ page }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <li style="padding-left: 10px"><a style="color: #fd7e14"
+                                                          href="?page={{ page_obj.next_page_number }}">بعدی</a></li>
+                    {% endif %}
+                </ul>
+            {% else %}
+                <p class="alert alert-warning text-center">بلاگ مورد نظر یافت نشد</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

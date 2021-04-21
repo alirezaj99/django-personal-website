@@ -1,0 +1,28 @@
+{% extends "shared/_Mainlayout.html" %}
+{% block title %}درباره من{% endblock %}
+{% block content %}
+
+    <div class="pb-0 pb-sm-2">
+        <h1 class="title title--h1 first-title title__separate">درباره ی من</h1>
+        <p class=" text-justify">{{ about_us.about_text }}</p>
+    </div>
+    <div class="mt-1">
+        <h2 class="title title--h3">کاری که انجام می دهم</h2>
+        <div class="row">
+            <!-- Case Item -->
+            {% for work in about_work %}
+                <div class="col-12 col-lg-6">
+                    <div class="case-item">
+                        <img class="case-item__icon" src="{{ work.get_image_or_default }}" alt="">
+                        <div>
+                            <h3 class="title title--h4">{{ work.title }}</h3>
+                            <p class="case-item__caption">{{ work.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock %}
