@@ -35,21 +35,21 @@
                 <div class="sidebar box sticky-column">
                     <ul class="nav">
                         <li class="nav__item"><a
-                                class="{% if request.path == "/about-me" %}active{% endif %}"
-                                href="{% url "about_us:about_me" %}"><i
-                                class="icon-user"></i>درباره ی
+                                class="{% if request.path == "/" %}active{% endif %}"
+                            href="{% url "about_us:about_me" %}"><i
+                                    class="icon-user"></i>درباره ی
                             من</a></li>
-                        <li class="nav__item"><a class="{% if request.path == "/resume" %}active{% endif %}"
-                                                 href="{% url "resumes:resume" %}"><i
-                                class="icon-file-text"></i>رزومه</a></li>
-                        <li class="nav__item"><a class="{% if request.path == "/works" %}active{% endif %}"
-                                                 href="{% url "works:work_list" %}"><i class="icon-codesandbox"></i>
+                        <li class="nav__item"><a class="{% if request.path == "/resume/" %}active{% endif %}"
+                            href="{% url "resumes:resume" %}"><i
+                                    class="icon-file-text"></i>رزومه</a></li>
+                        <li class="nav__item"><a class="{% if request.path == "/works/" %}active{% endif %}"
+                            href="{% url "works:work_list" %}"><i class="icon-codesandbox"></i>
                             کارها</a></li>
-                        <li class="nav__item"><a class="{% if request.path == "/blogs" %}active{% endif %}"
-                                                 href="{% url "blogs:blog_list" %}"><i class="icon-book-open"></i>وبلاگ</a>
+                        <li class="nav__item"><a class="{% if request.path == "/blogs/" %}active{% endif %}"
+                            href="{% url "blogs:blog_list" %}"><i class="icon-book-open"></i>وبلاگ</a>
                         </li>
-                        <li class="nav__item"><a class="{% if request.path == "/contact" %}active{% endif %}"
-                                                 href="{% url "contact:contact" %}"><i class="icon-book"></i>تماس با ما</a>
+                        <li class="nav__item"><a class="{% if request.path == "/contact/" %}active{% endif %}"
+                            href="{% url "contact:contact" %}"><i class="icon-book"></i>تماس با ما</a>
                         </li>
                     </ul>
                 </div>
@@ -79,7 +79,8 @@
 </svg>
 
 <!-- Demo Menu -->
-{% comment %}<div class="btnSlideNav slideOpen"></div>
+{% comment %}
+<div class="btnSlideNav slideOpen"></div>
 <div class="btnSlideNav slideClose"></div>
 <div class="slideNav">
     <ul class="list-unstyled">
@@ -91,7 +92,8 @@
     </ul>
     <a href="dark/about.html" class="btn btn--dark">نسخه تیره</a>
 </div>
-<div class="overlay-slideNav"></div>{% endcomment %}
+<div class="overlay-slideNav"></div>
+{% endcomment %}
 <!-- Demo Menu -->
 
 {% include "shared/_FooterReferences.html" %}

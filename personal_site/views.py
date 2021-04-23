@@ -32,9 +32,6 @@ def view_500(request):
     return render(request, "shared/500.html", context)
 
 
-def home_page(request):
-    return redirect("about_us:about_me")
-
 
 def footer(request):
     setting = MainSetting.objects.first()
